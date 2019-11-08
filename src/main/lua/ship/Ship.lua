@@ -1,4 +1,4 @@
-local fs = require("../lib/fs");
+local fs = require("/etc/com/nosk/lib/fs");
 
 local ship = {};
 
@@ -17,7 +17,7 @@ function ship.jumpSnaggsSelf(jumpConfig)
   return false;
 end
 
-local shipFiles = "/etc/ship/";
+local shipFiles = "/etc/config/ship/";
 local shipConfigPath = shipFiles + "shipConfig.txt";
 
 function ship.getShipConfig()

@@ -1,16 +1,19 @@
 local computer = require("computer")
 
-function getFile(file, path, name)
-  local installFile = path .. "/" .. (name ~= null and name or file)
+function getFile(file, path)
+  local installFile = (path == null and "/etc/com/nosk/" or path) .. file
   os.execute("rm " .. installFile)
   os.execute("wget https://raw.githubusercontent.com/nosknut/OpenComputersIngame/master/src/main/lua/" .. file .. " " .. installFile)
 end
 
-getFile("DataScreen.lua", "/lib")
-getFile("ListScreen.lua", "/lib")
-getFile("Tabs.lua", "/lib")
-getFile("Array.lua", "/lib")
-getFile("reactBase.lua", "/lib")
-getFile("Nav.lua", "", "autorun.lua")
+getFile("lib/Array.lua")
+getFile("lib/fs.lua")
+getFile("lib/Gui.lua")
+getFile("nav/DataScreen.lua")
+getFile("nav/ListScreen.lua")
+getFile("nav/Nav.lua")
+getFile("nav/Tabs.lua")
+getFile("ship/Ship.lua")
+getFile("autorun.lua", "/")
 
 computer.shutdown(true)

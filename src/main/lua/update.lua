@@ -1,7 +1,3 @@
-function getFile(file, path)
-  os.execute("rm " .. path .. "/" .. file)
-  os.execute("wget https://raw.githubusercontent.com/nosknut/OpenComputersIngame/master/src/main/lua/" .. file .. " " .. path .. "/" .. file)
-end
-
-getFile("install.lua", ".")
-os.execute("installAutoNav")
+os.execute("rm /etc/com/nosk/install.lua" .. path .. "/" .. file)
+os.execute("wget https://raw.githubusercontent.com/nosknut/OpenComputersIngame/master/src/main/lua/install.lua /etc/com/nosk/install.lua")
+os.execute("/etc/com/nosk/install.lua")
