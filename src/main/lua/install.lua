@@ -1,9 +1,16 @@
-function getFile(path)
-    local token = "AD3YJDDKCP6TXCAOI3NACK25HSAUO"
-    os.execute("wget https://raw.githubusercontent.com/nosknut/OpenComputers/master/" .. path .. "?token=" .. token .. "/lib")
+local computer = require("computer")
+
+function getFile(file, path, name)
+  local installFile = path .. "/" .. (name ~= null and name or file)
+  os.execute("rm " .. installFile)
+  os.execute("wget https://raw.githubusercontent.com/nosknut/OpenComputersIngame/master/src/main/lua/" .. file .. " " .. installFile)
 end
 
-print("Downloading fsConfig ...")
-getFile("Core/fsConfig.lua") 
-print("Downloading wdNav ...")
-getFile("Core/wdNav.lua")
+getFile("DataScreen.lua", "/lib")
+getFile("ListScreen.lua", "/lib")
+getFile("Tabs.lua", "/lib")
+getFile("Array.lua", "/lib")
+getFile("reactBase.lua", "/lib")
+getFile("Nav.lua", "", "autorun.lua")
+
+computer.shutdown(true)

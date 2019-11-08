@@ -6,44 +6,6 @@ local forEach = Array.forEach
 
 local reactBase = {}
 
-function reactBase.createElement(element)
-  local state = {}
-  local cachedProps = {}
-  local renders = 0
-  local instance = element()
-  if instance.initialState ~= nul then
-    state = instance.initialState
-  end
-  local setState
-  local function render()
-    renders = renders + 1
-    instance.render(cachedProps, state, setState)
-  end
-
-  setState = function(newState)
-    forEach(newState, function(value, key)
-      state[key] = value
-    end)
-    instance.unmount(cachedProps)
-    render()
-  end
-
-  return {
-    render = function(props)
-      if props ~= null then
-        cachedProps = props
-      end
-      if renders ~= 0 then
-        instance.unmount(cachedProps)
-      end
-      render()
-    end,
-    unmount = function()
-      instance.unmount(cachedProps)
-    end
-  }
-end
-
 function reactBase.setText(x, y, text, color)
   local foreground = gpu.getForeground()
   if color ~= null then

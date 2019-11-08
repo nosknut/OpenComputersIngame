@@ -3,5 +3,5 @@ function getFile(file, path)
   os.execute("wget https://raw.githubusercontent.com/nosknut/OpenComputersIngame/master/src/main/lua/" .. file .. " " .. path .. "/" .. file)
 end
 
-getFile("installAutoNav.lua", ".")
+getFile("install.lua", ".")
 os.execute("installAutoNav")
