@@ -3,7 +3,7 @@ local computer = require("computer")
 function getFile(file, path, name)
   local installFile = path .. "/" .. (name ~= null and name or file)
   os.execute("rm " .. installFile)
-  os.execute("wget https://raw.githubusercontent.com/nosknut/OpenComputersIngame/master/src/main/lua/" .. file .. " " .. installFile)
+  os.execute("wget https://raw.githubusercontent.com/nosknut/OpenComputersIngame/feature/devensiv/src/main/lua/" .. file .. " " .. installFile)
 end
 
 getFile("DataScreen.lua", "/lib")
