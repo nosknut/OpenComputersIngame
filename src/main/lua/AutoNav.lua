@@ -18,6 +18,7 @@ local DataScreen = require("DataScreen")
 local Tabs = require("Tabs")
 local createElement = reactBase.createElement
 local computer = require("computer")
+local sensorBuffer = {}
 
 local ObjectType = {
   CLUSTERS = { key = "CLUSTERS", label = "Clusters" },
@@ -31,6 +32,7 @@ local ScanType = {
   SUBSPACE = { key = "SUBSPACE", label = "Subspace" },
   GRAVIMETRIC = { key = "GRAVIMETRIC", label = "Gravimetric" },
   OPTICAL = { key = "OPTICAL", label = "Optical" },
+  REFRESH = { key = "REFRESH", label = "Refresh"}
 }
 
 function systemOf(designation)
@@ -45,7 +47,7 @@ function Page()
   local objectTabsElement = createElement(Tabs)
   local screenElement = createElement(ListScreen)
   local dataScreenElement = createElement(DataScreen)
-  print("Version 0.1")
+  print("Version 0.2")
   gravimetricScan()
   return {
     initialState = {
@@ -54,7 +56,6 @@ function Page()
       filters = {}
     },
     render = function(_, state, setState)
-      local sensorBuffer = readSensorBuffer(stargate.entriesInBuffer())
       scanTypeTabsElement.render({
         y = 1,
         selected = state.scanType.label,
@@ -62,6 +63,7 @@ function Page()
           ScanType.SUBSPACE,
           ScanType.GRAVIMETRIC,
           ScanType.OPTICAL,
+          ScanType.REFRESH,
         }, function(type) return {
           label = type.label,
           onClick = function()
@@ -71,6 +73,13 @@ function Page()
               gravimetricScan()
             elseif type == ScanType.OPTICAL then
               opticalScan()
+            elseif type == ScanType.REFRESH then
+              if stargate.scanIsActive() then
+                print("scan still running")
+              else
+                sensorBuffer = readSensorBuffer(stargate.entriesInBuffer())
+                print("refreshed buffer")
+              end
             end
             setState({ scanType = type })
           end
