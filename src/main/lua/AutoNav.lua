@@ -4,7 +4,7 @@ local stargate = component.stargate
 local opticalScan = stargate.opticalScan
 local gravimetricScan = stargate.gravimetricScan
 local subspaceScan = stargate.subspaceScan
-local readSensorBuffer = stargate.readSensorBuffer
+local readSensorBuffer = stargate.bufferRead
 local event = require("event")
 local Array = require("arrayUtils")
 local map = Array.map
@@ -45,7 +45,8 @@ function Page()
   local objectTabsElement = createElement(Tabs)
   local screenElement = createElement(ListScreen)
   local dataScreenElement = createElement(DataScreen)
-  subspaceScan()
+  print("Version 0.1")
+  gravimetricScan()
   return {
     initialState = {
       objectType = ObjectType.CLUSTERS,
@@ -53,7 +54,7 @@ function Page()
       filters = {}
     },
     render = function(_, state, setState)
-      local sensorBuffer = readSensorBuffer()
+      local sensorBuffer = readSensorBuffer(stargate.entriesInBuffer())
       scanTypeTabsElement.render({
         y = 1,
         selected = state.scanType.label,
